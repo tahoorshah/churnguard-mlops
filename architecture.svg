@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 720" font-family="-apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#475569"/>
+    </marker>
+    <marker id="arrowDash" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1060" height="720" fill="#ffffff"/>
+
+  <!-- Title -->
+  <text x="530" y="40" text-anchor="middle" font-size="26" font-weight="700" fill="#0f172a">ChurnGuard — MLOps + DevSecOps on AWS</text>
+  <text x="530" y="66" text-anchor="middle" font-size="14" fill="#64748b">End-to-end customer-churn prediction: data → model → API → CI/CD → Kubernetes → monitoring</text>
+
+  <!-- Legend -->
+  <g font-size="12" fill="#475569">
+    <rect x="360" y="86" width="12" height="12" rx="2" fill="#2563eb"/><text x="378" y="96">Kubernetes</text>
+    <rect x="470" y="86" width="12" height="12" rx="2" fill="#ea8c00"/><text x="488" y="96">AWS service</text>
+    <rect x="590" y="86" width="12" height="12" rx="2" fill="#16a34a"/><text x="608" y="96">Security scan</text>
+  </g>
+
+  <!-- Developer -->
+  <rect x="40" y="140" width="150" height="56" rx="10" fill="#f1f5f9" stroke="#cbd5e1"/>
+  <text x="115" y="166" text-anchor="middle" font-size="14" font-weight="600" fill="#0f172a">Developer</text>
+  <text x="115" y="184" text-anchor="middle" font-size="11" fill="#64748b">git push</text>
+
+  <!-- GitHub -->
+  <rect x="230" y="140" width="150" height="56" rx="10" fill="#f1f5f9" stroke="#cbd5e1"/>
+  <text x="305" y="166" text-anchor="middle" font-size="14" font-weight="600" fill="#0f172a">GitHub</text>
+  <text x="305" y="184" text-anchor="middle" font-size="11" fill="#64748b">source of truth</text>
+
+  <line x1="190" y1="168" x2="226" y2="168" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- CI/CD pipeline box -->
+  <rect x="420" y="120" width="600" height="96" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="440" y="142" font-size="13" font-weight="700" fill="#0f172a">GitHub Actions — CI/CD</text>
+
+  <!-- stages -->
+  <g font-size="11.5" font-weight="600">
+    <rect x="438" y="154" width="76" height="46" rx="8" fill="#eff6ff" stroke="#bfdbfe"/>
+    <text x="476" y="175" text-anchor="middle" fill="#1e3a8a">Train</text>
+    <text x="476" y="190" text-anchor="middle" font-size="9.5" font-weight="400" fill="#64748b">model</text>
+
+    <rect x="522" y="154" width="76" height="46" rx="8" fill="#eff6ff" stroke="#bfdbfe"/>
+    <text x="560" y="175" text-anchor="middle" fill="#1e3a8a">Test</text>
+    <text x="560" y="190" text-anchor="middle" font-size="9.5" font-weight="400" fill="#64748b">pytest</text>
+
+    <rect x="606" y="154" width="80" height="46" rx="8" fill="#f0fdf4" stroke="#bbf7d0"/>
+    <text x="646" y="175" text-anchor="middle" fill="#166534">Bandit</text>
+    <text x="646" y="190" text-anchor="middle" font-size="9.5" font-weight="400" fill="#64748b">SAST</text>
+
+    <rect x="694" y="154" width="80" height="46" rx="8" fill="#f0fdf4" stroke="#bbf7d0"/>
+    <text x="734" y="175" text-anchor="middle" fill="#166534">Gitleaks</text>
+    <text x="734" y="190" text-anchor="middle" font-size="9.5" font-weight="400" fill="#64748b">secrets</text>
+
+    <rect x="782" y="154" width="80" height="46" rx="8" fill="#f0fdf4" stroke="#bbf7d0"/>
+    <text x="822" y="175" text-anchor="middle" fill="#166534">Trivy</text>
+    <text x="822" y="190" text-anchor="middle" font-size="9.5" font-weight="400" fill="#64748b">image CVEs</text>
+
+    <rect x="870" y="154" width="130" height="46" rx="8" fill="#eff6ff" stroke="#bfdbfe"/>
+    <text x="935" y="175" text-anchor="middle" fill="#1e3a8a">Build image</text>
+    <text x="935" y="190" text-anchor="middle" font-size="9.5" font-weight="400" fill="#64748b">Docker (non-root)</text>
+  </g>
+
+  <line x1="380" y1="168" x2="416" y2="168" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- ECR -->
+  <rect x="790" y="256" width="210" height="56" rx="10" fill="#fff7ed" stroke="#fdba74"/>
+  <text x="895" y="282" text-anchor="middle" font-size="14" font-weight="600" fill="#9a3412">Amazon ECR</text>
+  <text x="895" y="300" text-anchor="middle" font-size="11" fill="#b45309">registry · scan-on-push</text>
+  <line x1="935" y1="216" x2="900" y2="252" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="952" y="240" font-size="10.5" fill="#64748b">docker push</text>
+
+  <!-- EKS cluster -->
+  <rect x="40" y="340" width="960" height="250" rx="14" fill="#f8fafc" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="62" y="366" font-size="14" font-weight="700" fill="#1e40af">Amazon EKS — Kubernetes 1.31</text>
+  <text x="300" y="366" font-size="11" fill="#64748b">KMS-encrypted secrets · 2× t3.medium nodes · private subnets</text>
+
+  <!-- internet / LB -->
+  <rect x="70" y="400" width="140" height="60" rx="10" fill="#fff7ed" stroke="#fdba74"/>
+  <text x="140" y="426" text-anchor="middle" font-size="13" font-weight="600" fill="#9a3412">AWS Load</text>
+  <text x="140" y="443" text-anchor="middle" font-size="13" font-weight="600" fill="#9a3412">Balancer</text>
+
+  <!-- service -->
+  <rect x="250" y="400" width="140" height="60" rx="10" fill="#eff6ff" stroke="#93c5fd"/>
+  <text x="320" y="426" text-anchor="middle" font-size="13" font-weight="600" fill="#1e3a8a">Service</text>
+  <text x="320" y="443" text-anchor="middle" font-size="10.5" fill="#64748b">churnguard :80→8000</text>
+
+  <!-- pods -->
+  <rect x="430" y="384" width="210" height="44" rx="10" fill="#eff6ff" stroke="#93c5fd"/>
+  <text x="535" y="405" text-anchor="middle" font-size="12.5" font-weight="600" fill="#1e3a8a">Pod 1 — FastAPI</text>
+  <text x="535" y="420" text-anchor="middle" font-size="9.5" fill="#64748b">/predict · /health · /metrics</text>
+
+  <rect x="430" y="436" width="210" height="44" rx="10" fill="#eff6ff" stroke="#93c5fd"/>
+  <text x="535" y="457" text-anchor="middle" font-size="12.5" font-weight="600" fill="#1e3a8a">Pod 2 — FastAPI</text>
+  <text x="535" y="472" text-anchor="middle" font-size="9.5" fill="#64748b">/predict · /health · /metrics</text>
+
+  <line x1="210" y1="430" x2="246" y2="430" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="390" y1="424" x2="426" y2="408" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="390" y1="436" x2="426" y2="454" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- image pull from ECR -->
+  <line x1="895" y1="312" x2="620" y2="380" stroke="#94a3b8" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arrowDash)"/>
+  <text x="720" y="344" font-size="10.5" fill="#94a3b8">image pull</text>
+
+  <!-- monitoring -->
+  <rect x="680" y="390" width="150" height="56" rx="10" fill="#eef2ff" stroke="#c7d2fe"/>
+  <text x="755" y="414" text-anchor="middle" font-size="13" font-weight="600" fill="#3730a3">Prometheus</text>
+  <text x="755" y="431" text-anchor="middle" font-size="10" fill="#64748b">scrapes /metrics</text>
+
+  <rect x="860" y="390" width="120" height="56" rx="10" fill="#eef2ff" stroke="#c7d2fe"/>
+  <text x="920" y="414" text-anchor="middle" font-size="13" font-weight="600" fill="#3730a3">Grafana</text>
+  <text x="920" y="431" text-anchor="middle" font-size="10" fill="#64748b">dashboards</text>
+
+  <line x1="640" y1="440" x2="676" y2="422" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="830" y1="418" x2="856" y2="418" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- MLflow note inside cluster bottom -->
+  <rect x="70" y="500" width="300" height="56" rx="10" fill="#f1f5f9" stroke="#cbd5e1"/>
+  <text x="90" y="524" font-size="12.5" font-weight="600" fill="#0f172a">MLflow</text>
+  <text x="90" y="541" font-size="10.5" fill="#64748b">experiment tracking + model registry</text>
+
+  <!-- Evidently -->
+  <rect x="400" y="500" width="300" height="56" rx="10" fill="#f1f5f9" stroke="#cbd5e1"/>
+  <text x="420" y="524" font-size="12.5" font-weight="600" fill="#0f172a">Evidently — data-drift detection</text>
+  <text x="420" y="541" font-size="10.5" fill="#64748b">training vs production distribution (offline)</text>
+
+  <!-- Terraform footer -->
+  <rect x="40" y="620" width="960" height="70" rx="12" fill="#faf5ff" stroke="#e9d5ff"/>
+  <text x="62" y="648" font-size="14" font-weight="700" fill="#6b21a8">Terraform — Infrastructure as Code</text>
+  <text x="62" y="672" font-size="12" fill="#64748b">provisions: VPC · public/private subnets · NAT · EKS cluster · ECR · IAM roles · KMS  (54 resources, Checkov-scannable)</text>
+  <line x1="520" y1="620" x2="520" y2="594" stroke="#c084fc" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#arrowDash)"/>
+</svg>
