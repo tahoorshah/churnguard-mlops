@@ -22,6 +22,14 @@ jobs:
           pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Download dataset
+        run: |
+          mkdir -p data
+          curl -L -o data/churn.csv https://raw.githubusercontent.com/IBM/telco-customer-churn-on-icp4d/master/data/Telco-Customer-Churn.csv
+
+      - name: Train model (produces artifact for tests)
+        run: python src/train.py
+
       - name: Run tests
         run: pytest -q
 
