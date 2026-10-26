@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>ChurnGuard</title>
+<style>
+  :root{
+    --bg:#0b1120; --panel:#111a2e; --panel2:#0e1627; --line:#1e293b;
+    --text:#e2e8f0; --muted:#94a3b8; --accent:#38bdf8; --accent2:#2563eb;
+    --good:#22c55e; --warn:#f59e0b; --bad:#ef4444;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:radial-gradient(1200px 600px at 70% -10%,#1e293b55,transparent),var(--bg);
+    color:var(--text);font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    min-height:100vh;padding:28px 16px}
+  .wrap{max-width:920px;margin:0 auto}
+  header{display:flex;align-items:center;gap:14px;margin-bottom:6px}
+  .logo{width:42px;height:42px;border-radius:11px;background:linear-gradient(135deg,var(--accent),var(--accent2));
+    display:grid;place-items:center;font-size:22px;box-shadow:0 6px 20px #2563eb55}
+  h1{font-size:26px;margin:0;letter-spacing:-.5px}
+  .sub{color:var(--muted);font-size:13.5px;margin:2px 0 22px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:760px){.grid{grid-template-columns:1fr}}
+  .card{background:linear-gradient(180deg,var(--panel),var(--panel2));border:1px solid var(--line);
+    border-radius:16px;padding:22px}
+  .card h2{font-size:13px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin:0 0 16px}
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px 14px}
+  label{display:block;font-size:11.5px;color:var(--muted);margin-bottom:5px}
+  select,input{width:100%;background:#0b1424;border:1px solid var(--line);color:var(--text);
+    padding:8px 10px;border-radius:9px;font-size:13px;outline:none}
+  select:focus,input:focus{border-color:var(--accent)}
+  .full{grid-column:1 / -1}
+  button{width:100%;margin-top:18px;padding:13px;border:0;border-radius:11px;cursor:pointer;
+    background:linear-gradient(135deg,var(--accent),var(--accent2));color:#021018;font-weight:700;
+    font-size:15px;letter-spacing:.3px}
+  button:active{transform:translateY(1px)}
+  .result{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;height:100%;min-height:300px}
+  .dial{position:relative;width:200px;height:200px}
+  .pct{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .pct .num{font-size:46px;font-weight:800;line-height:1}
+  .pct .lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-top:4px}
+  .verdict{margin-top:20px;font-size:20px;font-weight:700}
+  .verdict small{display:block;font-size:12.5px;font-weight:400;color:var(--muted);margin-top:6px;max-width:260px}
+  .pill{display:inline-block;margin-top:14px;padding:5px 14px;border-radius:999px;font-size:12px;font-weight:700}
+  .idle{color:var(--muted);font-size:14px}
+  footer{text-align:center;color:var(--muted);font-size:12px;margin-top:22px}
+  a{color:var(--accent);text-decoration:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo">&#128737;</div>
+    <div><h1>ChurnGuard</h1></div>
+  </header>
+  <div class="sub">Will this customer churn? Enter their profile and the model returns a risk score. &middot; <a href="/docs">API docs</a></div>
+
+  <div class="grid">
+    <div class="card">
+      <h2>Customer profile</h2>
+      <form id="f">
+        <div class="form-grid">
+          <div><label>Gender</label><select name="gender"><option>Female</option><option>Male</option></select></div>
+          <div><label>Senior citizen</label><select name="SeniorCitizen"><option value="0">No</option><option value="1">Yes</option></select></div>
+          <div><label>Partner</label><select name="Partner"><option>Yes</option><option>No</option></select></div>
+          <div><label>Dependents</label><select name="Dependents"><option>No</option><option>Yes</option></select></div>
+          <div><label>Tenure (months)</label><input name="tenure" type="number" value="1" min="0"/></div>
+          <div><label>Phone service</label><select name="PhoneService"><option>No</option><option>Yes</option></select></div>
+          <div><label>Multiple lines</label><select name="MultipleLines"><option>No phone service</option><option>No</option><option>Yes</option></select></div>
+          <div><label>Internet service</label><select name="InternetService"><option>DSL</option><option>Fiber optic</option><option>No</option></select></div>
+          <div><label>Online security</label><select name="OnlineSecurity"><option>No</option><option>Yes</option><option>No internet service</option></select></div>
+          <div><label>Online backup</label><select name="OnlineBackup"><option>Yes</option><option>No</option><option>No internet service</option></select></div>
+          <div><label>Device protection</label><select name="DeviceProtection"><option>No</option><option>Yes</option><option>No internet service</option></select></div>
+          <div><label>Tech support</label><select name="TechSupport"><option>No</option><option>Yes</option><option>No internet service</option></select></div>
+          <div><label>Streaming TV</label><select name="StreamingTV"><option>No</option><option>Yes</option><option>No internet service</option></select></div>
+          <div><label>Streaming movies</label><select name="StreamingMovies"><option>No</option><option>Yes</option><option>No internet service</option></select></div>
+          <div><label>Contract</label><select name="Contract"><option>Month-to-month</option><option>One year</option><option>Two year</option></select></div>
+          <div><label>Paperless billing</label><select name="PaperlessBilling"><option>Yes</option><option>No</option></select></div>
+          <div class="full"><label>Payment method</label><select name="PaymentMethod"><option>Electronic check</option><option>Mailed check</option><option>Bank transfer (automatic)</option><option>Credit card (automatic)</option></select></div>
+          <div><label>Monthly charges ($)</label><input name="MonthlyCharges" type="number" step="0.05" value="29.85"/></div>
+          <div><label>Total charges ($)</label><input name="TotalCharges" type="number" step="0.05" value="29.85"/></div>
+        </div>
+        <button type="submit" id="btn">Predict churn risk</button>
+      </form>
+    </div>
+
+    <div class="card">
+      <h2>Prediction</h2>
+      <div class="result" id="result">
+        <div class="idle">Fill in the profile and hit <b>Predict</b> to see the churn risk.</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>ChurnGuard &middot; scikit-learn model served on Amazon EKS &middot; built by Syed Muhammad Tahoor Ali</footer>
+</div>
+
+<script>
+const f = document.getElementById("f");
+const result = document.getElementById("result");
+const btn = document.getElementById("btn");
+
+function colorFor(p){ if(p>=0.6) return "var(--bad)"; if(p>=0.35) return "var(--warn)"; return "var(--good)"; }
+function verdictFor(p){
+  if(p>=0.6) return ["High risk","This customer is likely to churn. Consider a retention offer."];
+  if(p>=0.35) return ["Moderate risk","Some churn signals present. Worth monitoring."];
+  return ["Low risk","This customer looks likely to stay."];
+}
+
+f.addEventListener("submit", async function(e){
+  e.preventDefault();
+  btn.textContent = "Predicting..."; btn.disabled = true;
+  const data = {};
+  new FormData(f).forEach(function(v,k){
+    if(k==="SeniorCitizen" || k==="tenure"){ data[k] = parseInt(v); }
+    else if(k==="MonthlyCharges" || k==="TotalCharges"){ data[k] = parseFloat(v); }
+    else { data[k] = v; }
+  });
+  try{
+    const r = await fetch("/predict", {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(data)});
+    if(!r.ok){ throw new Error("HTTP " + r.status); }
+    const out = await r.json();
+    const p = out.churn_probability;
+    const col = colorFor(p);
+    const vv = verdictFor(p);
+    const deg = Math.round(p*360);
+    result.innerHTML =
+      '<div class="dial" style="background:conic-gradient(' + col + ' ' + deg + 'deg, #1e293b ' + deg + 'deg);border-radius:50%">' +
+        '<div style="position:absolute;inset:14px;background:var(--panel);border-radius:50%"></div>' +
+        '<div class="pct"><div class="num" style="color:' + col + '">' + (p*100).toFixed(1) + '%</div><div class="lbl">churn probability</div></div>' +
+      '</div>' +
+      '<div class="verdict" style="color:' + col + '">' + vv[0] + '<small style="color:var(--muted)">' + vv[1] + '</small></div>' +
+      '<div class="pill" style="background:' + col + '22;color:' + col + '">' + (out.churn ? "WILL CHURN" : "WILL STAY") + '</div>';
+  }catch(err){
+    result.innerHTML = '<div class="idle" style="color:var(--bad)">Could not reach the model: ' + err.message + '</div>';
+  }
+  btn.textContent = "Predict churn risk"; btn.disabled = false;
+});
+</script>
+</body>
+</html>

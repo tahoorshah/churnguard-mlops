@@ -39,3 +39,9 @@ def predict(c: Customer):
     proba = float(model.predict_proba(row)[0, 1])
     return {"churn_probability": round(proba, 4),
             "churn": bool(proba >= 0.5)}
+
+from fastapi.responses import FileResponse
+
+@app.get("/")
+def home():
+    return FileResponse("src/index.html")
