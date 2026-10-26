@@ -1,7 +1,7 @@
 FROM python:3.12-slim
 
 # Security: run as non-root user, not root
-RUN useradd -m appuser
+RUN useradd -m -u 1000 appuser
 WORKDIR /app
 
 COPY requirements.txt .

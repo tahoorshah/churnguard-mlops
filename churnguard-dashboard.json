@@ -1,0 +1,48 @@
+{
+  "title": "ChurnGuard API",
+  "uid": "churnguard-api",
+  "timezone": "browser",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "10s",
+  "time": { "from": "now-30m", "to": "now" },
+  "panels": [
+    {
+      "title": "Request Rate (req/s)",
+      "type": "timeseries",
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 },
+      "targets": [
+        { "expr": "sum(rate(http_requests_total{job=\"churnguard\"}[5m])) by (handler)", "legendFormat": "{{handler}}" }
+      ]
+    },
+    {
+      "title": "Latency p50 / p95 (s)",
+      "type": "timeseries",
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
+      "targets": [
+        { "expr": "histogram_quantile(0.50, sum(rate(http_request_duration_seconds_bucket{job=\"churnguard\"}[5m])) by (le))", "legendFormat": "p50" },
+        { "expr": "histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket{job=\"churnguard\"}[5m])) by (le))", "legendFormat": "p95" }
+      ]
+    },
+    {
+      "title": "Error Rate (non-2xx req/s)",
+      "type": "timeseries",
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 8 },
+      "targets": [
+        { "expr": "sum(rate(http_requests_total{job=\"churnguard\",status!~\"2..\"}[5m]))", "legendFormat": "errors" }
+      ]
+    },
+    {
+      "title": "Total Requests by Status",
+      "type": "timeseries",
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 8 },
+      "targets": [
+        { "expr": "sum(rate(http_requests_total{job=\"churnguard\"}[5m])) by (status)", "legendFormat": "{{status}}" }
+      ]
+    }
+  ]
+}
