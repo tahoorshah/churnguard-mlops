@@ -1,0 +1,7 @@
+.venv/
+data/
+models/
+mlruns/
+__pycache__/
+*.pkl
+mlflow.db
