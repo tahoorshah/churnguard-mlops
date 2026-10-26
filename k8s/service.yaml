@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: churnguard
+spec:
+  type: LoadBalancer
+  selector:
+    app: churnguard
+  ports:
+    - port: 80
+      targetPort: 8000

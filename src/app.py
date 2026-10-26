@@ -5,6 +5,8 @@ from pydantic import BaseModel
 
 model = joblib.load("models/model.pkl")
 app = FastAPI(title="ChurnGuard API")
+from prometheus_fastapi_instrumentator import Instrumentator
+Instrumentator().instrument(app).expose(app)
 
 class Customer(BaseModel):
     gender: str
